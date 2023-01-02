@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //
 configViewEngine(app);
-initWebRoutes(app);
 
+initWebRoutes(app);
 Db.connect();
 
 const port = process.env.PORT || 3000;
