@@ -6,9 +6,6 @@ class SiteController {
     try {
       let data = await db.User.findAll();
 
-      console.log(data);
-      console.log(data);
-
       res.render("homepage", { data: JSON.stringify(data) });
     } catch (error) {
       console.log(error);

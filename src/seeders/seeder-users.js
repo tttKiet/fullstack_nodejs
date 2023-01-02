@@ -5,9 +5,14 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("Users", [
       {
-        firstName: "John",
-        lastName: "Doe",
-        email: "example@example.com",
+        email: "admin@example.com",
+        password: "123456",
+        firstName: "Kiet",
+        lastName: "Bui",
+        address: "CAN THO",
+        typeRole: "ROLE",
+        gender: 1,
+        keyRole: "R1",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
