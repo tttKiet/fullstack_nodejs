@@ -1,7 +1,17 @@
+import db from "../models/index";
+
 class SiteController {
   // [get] home,  /
-  index(req, res) {
-    res.render("homepage");
+  async index(req, res) {
+    try {
+      let data = await db.User.findAll();
+
+      console.log(data);
+
+      res.render("homepage", { data: JSON.stringify(data) });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

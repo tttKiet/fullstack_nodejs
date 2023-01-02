@@ -1,6 +1,8 @@
 import express from "express";
 import configViewEngine from "./config/viewEngine";
 import initWebRoutes from "./route";
+import Db from "./config/db/connectDB";
+
 import * as dotenv from "dotenv";
 
 const app = express();
@@ -13,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 //
 configViewEngine(app);
 initWebRoutes(app);
+
+Db.connect();
 
 const port = process.env.PORT || 3000;
 
