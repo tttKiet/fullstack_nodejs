@@ -1,5 +1,6 @@
 import express from "express";
 import configViewEngine from "./config/viewEngine";
+import methodOverride from "method-override";
 import initWebRoutes from "./route";
 import Db from "./config/db/connectDB";
 
@@ -11,7 +12,7 @@ dotenv.config(); // Chay duoc process.env
 //
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(methodOverride("_method"));
 //
 configViewEngine(app);
 

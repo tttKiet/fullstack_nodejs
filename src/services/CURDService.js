@@ -2,10 +2,10 @@ import db from "../models";
 import bcrypt from "bcryptjs";
 var salt = bcrypt.genSaltSync(10);
 
-let createNewUser = async (data) => {
+const createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let hashPasswordFormBcrypt = await hashUserPassword(data.password);
+      const hashPasswordFormBcrypt = await hashUserPassword(data.password);
       await db.User.create({
         email: data.email,
         password: hashPasswordFormBcrypt,
@@ -23,7 +23,7 @@ let createNewUser = async (data) => {
   });
 };
 
-let hashUserPassword = (password) => {
+const hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
     try {
       var hashPassword = await bcrypt.hashSync(password, salt);
@@ -34,7 +34,7 @@ let hashUserPassword = (password) => {
   });
 };
 
-let getAllUsers = () => {
+const getAllUsers = () => {
   return new Promise(async (resolve, reject) => {
     try {
       db.User.findAll({ raw: true }).then((data) => {
@@ -47,7 +47,42 @@ let getAllUsers = () => {
   });
 };
 
+const getUserById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      db.User.findOne({ where: { id: id }, raw: true }).then((data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve({});
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
+const updateUser = (id, data) => {
+  console.log("data");
+  console.log(data);
+  return new Promise(async (resolve, reject) => {
+    try {
+      db.User.update(data, { where: { id } }).then(() => {
+        console.log("----Update successful");
+        resolve();
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
 export default {
   createNewUser,
   getAllUsers,
+  getUserById,
+  updateUser,
 };
