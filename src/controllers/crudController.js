@@ -9,8 +9,15 @@ class CrudController {
   //   [post] /crud/create-user
   async postCRUD(req, res, next) {
     let massage = await CURDService.createNewUser(req.body);
-    console.log(massage);
-    res.send("Success!!!");
+    res.send(massage);
+  }
+
+  //   [post] /crud/get
+  async displayCRUD(req, res, next) {
+    let data = await CURDService.getAllUsers();
+    console.log(data);
+
+    return res.render("displayCRUD", { data });
   }
 }
 
