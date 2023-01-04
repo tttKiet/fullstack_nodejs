@@ -70,7 +70,21 @@ const updateUser = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
       db.User.update(data, { where: { id } }).then(() => {
-        console.log("----Update successful");
+        console.log("----Update successful----(CRUDService.js)");
+        resolve();
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
+const deleteUserById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      db.User.destroy({ where: { id } }).then(() => {
+        console.log("----Delete User successful----(CRUDService.js)");
         resolve();
       });
     } catch (error) {
@@ -85,4 +99,5 @@ export default {
   getAllUsers,
   getUserById,
   updateUser,
+  deleteUserById,
 };

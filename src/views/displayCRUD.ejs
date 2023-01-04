@@ -13,9 +13,39 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-light container">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/crud">CRUD</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/crud/create-user"
+                >Create a new User</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- end nav -->
     <div class="container mt-5">
       <div class="row">
-        <h4 class="mb-4">CRUD Get display</h4>
+        <h4 class="mb-4">CRUD Get Display</h4>
         <table class="table">
           <thead>
             <tr class="table-danger">
@@ -37,15 +67,15 @@
               <td><%= data[i].address%></td>
               <td>
                 <a href="/crud/edit?id=<%= data[i].id %>"
-                  ><button type="button" class="btn btn-warning">
-                    Edit
-                  </button></a
+                  ><button type="button" class="btn btn-warning">Edit</button>
+                </a>
+                <button
+                  type="button"
+                  data-id="<%= data[i].id %>"
+                  class="btn btn-danger btn-delete"
                 >
-                <a href="#"
-                  ><button type="button" class="btn btn-danger">
-                    Delete
-                  </button></a
-                >
+                  Delete
+                </button>
               </td>
             </tr>
             <% }%>
@@ -53,6 +83,12 @@
         </table>
       </div>
     </div>
+
+    <!-- form actions -->
+    <form name="delete-user" method="POST">
+      <button type="submit">sss</button>
+    </form>
+    <!-- end form actions -->
     <!-- script bootchap 5 -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -69,5 +105,26 @@
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- script -->
+    <script>
+      const btnDelete = $(".btn-delete");
+      btnDelete.click(function (e) {
+        const id = e.target.dataset.id;
+        const formDelete = $('form[name="delete-user"]');
+
+        // action="/crud/delete-user?_mothod=DELETE"
+
+        formDelete.attr("action", `/crud/delete-user?id=${id}&_method=DELETE`);
+        formDelete.submit();
+      });
+    </script>
   </body>
 </html>

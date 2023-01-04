@@ -1,21 +1,25 @@
 import CURDService from "../services/CURDService";
 
 class CrudController {
-  // [get] /crud
+  // [get] /crud/create-user
   index(req, res, next) {
-    res.render("crud");
+    res.render("createCRUD");
   }
 
   //   [post] /crud/create-user
   async postCRUD(req, res, next) {
     let massage = await CURDService.createNewUser(req.body);
-    res.send(massage);
+    if (massage) {
+      console.log(massage);
+      res.redirect("/crud");
+    } else {
+      res.send("Fail !!!");
+    }
   }
 
   //   [get] /crud/get
   async displayCRUD(req, res, next) {
     let data = await CURDService.getAllUsers();
-
     return res.render("displayCRUD", { data });
   }
 
@@ -24,7 +28,6 @@ class CrudController {
     const userId = req.query.id;
     if (userId) {
       let userData = await CURDService.getUserById(req.query.id);
-
       // Check user exists
       if (userData) {
         res.locals.id = userData.id;
@@ -38,11 +41,23 @@ class CrudController {
   //   [put] /crud/put-user
   async putCRUD(req, res, next) {
     const data = req.body;
-    console.log(data);
+    try {
+      await CURDService.updateUser(req.query.id, data);
+      res.redirect("/crud");
+    } catch (e) {
+      res.send(e);
+    }
+  }
 
-    await CURDService.updateUser(req.query.id, data);
-
-    res.redirect("/crud/get");
+  //   [delete] /crud/delete-user
+  async deleteUser(req, res, next) {
+    const id = req.query.id;
+    try {
+      await CURDService.deleteUserById(id);
+      res.redirect("back");
+    } catch (e) {
+      res.send(e);
+    }
   }
 }
 

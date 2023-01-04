@@ -10,9 +10,9 @@ const app = express();
 dotenv.config(); // Chay duoc process.env
 
 //
+app.use(methodOverride("_method"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
 //
 configViewEngine(app);
 
