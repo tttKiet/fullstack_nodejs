@@ -85,9 +85,7 @@
     </div>
 
     <!-- form actions -->
-    <form name="delete-user" method="POST">
-      <button type="submit">sss</button>
-    </form>
+    <form name="delete-user" method="POST"></form>
     <!-- end form actions -->
     <!-- script bootchap 5 -->
     <script
@@ -119,8 +117,6 @@
       btnDelete.click(function (e) {
         const id = e.target.dataset.id;
         const formDelete = $('form[name="delete-user"]');
-
-        // action="/crud/delete-user?_mothod=DELETE"
 
         formDelete.attr("action", `/crud/delete-user?id=${id}&_method=DELETE`);
         formDelete.submit();
